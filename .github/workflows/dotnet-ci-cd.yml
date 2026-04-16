@@ -40,21 +40,22 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       # STEP 3: Restore NuGet packages
+      # Pointing explicitly to your solution file to avoid MSB1011 error
       - name: Restore Dependencies
-        run: dotnet restore
+        run: dotnet restore App_with_yml_dot.sln
 
       # STEP 4: Compile in Release mode
       - name: Build
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build App_with_yml_dot.sln --no-restore --configuration Release
 
       # STEP 5: Run all unit/integration tests
       # --collect for code coverage (optional but good practice)
       - name: Run Tests
-        run: dotnet test --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage"
+        run: dotnet test App_with_yml_dot.sln --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage"
 
       # STEP 6: Publish compiled app to /publish folder
       - name: Publish App
-        run: dotnet publish -c Release -o publish
+        run: dotnet publish App_with_yml_dot.sln -c Release -o publish
 
       # STEP 7: Upload published artifact (reused in docker job)
       - name: Upload Published Artifact
@@ -101,7 +102,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
           tags: |
             type=sha,prefix=sha-
-            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/master' }}
 
       # STEP 5: Set up Docker Buildx (for multi-platform builds)
       - name: Set up Docker Buildx
@@ -127,7 +128,7 @@ jobs:
     name: Deploy to Staging
     runs-on: ubuntu-latest
     needs: docker-build-push
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     environment: staging   # ← GitHub Environment (for protection rules)
 
     steps:
@@ -177,7 +178,7 @@ jobs:
     name: Deploy to Production
     runs-on: ubuntu-latest
     needs: deploy-staging
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     environment: production   # ← Set required reviewers in GitHub Environments
 
     steps:
