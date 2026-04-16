@@ -475,9 +475,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\.NET 10\\Scratch_Builders\\App_with_yml_dot\\YourApp.csproj",
-      "projectName": "YourApp",
-      "projectPath": "C:\\Users\\Admin\\OneDrive\\.NET 10\\Scratch_Builders\\App_with_yml_dot\\YourApp.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\.NET 10\\Scratch_Builders\\App_with_yml_dot\\App_with_yml_dot.csproj",
+      "projectName": "App_with_yml_dot",
+      "projectPath": "C:\\Users\\Admin\\OneDrive\\.NET 10\\Scratch_Builders\\App_with_yml_dot\\App_with_yml_dot.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Admin\\OneDrive\\.NET 10\\Scratch_Builders\\App_with_yml_dot\\obj\\",
       "projectStyle": "PackageReference",
