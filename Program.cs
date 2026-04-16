@@ -28,7 +28,7 @@ app.MapControllers();
 
 // Health check route — hit this after deploy to verify the app is up
 app.MapHealthChecks("/health");
-
+//Helper endpoint to verify the app is running and provide basic info
 // ── Root endpoint (quick sanity check) ───────────────────────────
 app.MapGet("/", () => new
 {
