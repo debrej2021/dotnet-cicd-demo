@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("App_with_yml_dot")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dabab121c2844f848b9ed0986df87e35b7e3cf15")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2b6482d0da3ae0a69c2cc1e99a21827d06bb25f0")]
 [assembly: System.Reflection.AssemblyProductAttribute("App_with_yml_dot")]
 [assembly: System.Reflection.AssemblyTitleAttribute("App_with_yml_dot")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
