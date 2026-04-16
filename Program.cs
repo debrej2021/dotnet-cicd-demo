@@ -1,21 +1,21 @@
 // ─────────────────────────────────────────────────────────────────
-// Program.cs — Entry point for your .NET 8 Web API
-// This is the equivalent of "if __name__ == '__main__'" in Python
+// Program.cs — Clean entry point
+// No matter how many APIs you add, this file NEVER grows.
+// Each feature registers itself via extension methods.
 // ─────────────────────────────────────────────────────────────────
+
+using App_with_yml_dot.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ── Register Services (Dependency Injection) ──────────────────────
-builder.Services.AddControllers();
+// ── Services ──────────────────────────────────────────────────────
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// Health check endpoint (used by CI/CD post-deploy checks)
 builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
-// ── Middleware Pipeline ───────────────────────────────────────────
+// ── Middleware ────────────────────────────────────────────────────
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -23,23 +23,19 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
 
-// Health check route — hit this after deploy to verify the app is up
+// ── Health Check ──────────────────────────────────────────────────
 app.MapHealthChecks("/health");
-//Helper endpoint to verify the app is running and provide basic info
-// ── Root endpoint (quick sanity check) ───────────────────────────
-app.MapGet("/", () => new
-{
-    status = "running",
-    app = "ATIE - Adaptive Threat Intelligence Engine",
-    version = "1.0.0",
-    environment = app.Environment.EnvironmentName
-});
 
-// ── Entry Point ───────────────────────────────────────────────────
-// This is where your app starts — equivalent to Python's:
-// if __name__ == "__main__":
-//     main()
+// ── API Route Groups ──────────────────────────────────────────────
+// This is ALL you ever add here — one line per feature.
+// Each feature manages its own routes internally.
+app.MapProductEndpoints();
+app.MapOrderEndpoints();
+app.MapUserEndpoints();
+// app.MapPaymentEndpoints();     ← just uncomment when ready
+// app.MapReportEndpoints();      ← just uncomment when ready
+// app.MapNotificationEndpoints();
+
+// ─────────────────────────────────────────────────────────────────
 app.Run();
