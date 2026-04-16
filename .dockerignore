@@ -1,0 +1,42 @@
+# .dockerignore
+# Tells Docker what NOT to copy into the image context
+# Keeps builds fast and images clean
+
+# Build output
+bin/
+obj/
+publish/
+out/
+
+# Git
+.git/
+.gitignore
+
+# GitHub Actions
+.github/
+
+# IDE files
+.vs/
+.vscode/
+*.user
+
+# Test projects
+**/*Tests*/
+**/*Test*/
+
+# Logs
+*.log
+logs/
+
+# Secrets / environment files (NEVER include these)
+.env
+.env.*
+appsettings.Development.json
+appsettings.Local.json
+
+# Docker files (not needed inside image)
+Dockerfile
+.dockerignore
+
+# README
+README.md
